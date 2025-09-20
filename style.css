@@ -1,0 +1,78 @@
+body {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(126deg, #e0f7fa 0%, #f5f8fd 40%, #e6eeff 100%);
+}
+
+.hero-bg {
+  background: linear-gradient(120deg, #1cb5e0 0%, #009E9A 90%),
+    url('https://placehold.co/1920x1080/e2e8f0/cccccc?text=Clinic+Image') no-repeat center center/cover;
+}
+
+.section-title {
+  position: relative;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+.section-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, #009fff 0, #22c1c3 100%);
+  border-radius: 2px;
+}
+
+.testimonial-card {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 
+              0 4px 6px -2px rgba(0, 0, 0, 0.04);
+  background: linear-gradient(135deg, #ecfdf5 65%, #e3e9f7 100%);
+  transition: transform 0.3s ease;
+}
+.testimonial-card:hover {
+  transform: translateY(-5px) scale(1.025);
+}
+
+.service-gradient {
+  background: linear-gradient(125deg, #d9fbfd 0%, #e3e9f7 100%);
+}
+
+/* Modal styles */
+.modal-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 1000;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+.modal-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  width: 90%;
+  max-width: 500px;
+  transform: translateY(-50px);
+  transition: transform 0.3s ease;
+}
+.modal-backdrop.active .modal-content {
+  transform: translateY(0);
+}
+
+/* Button gradient */
+.btn-gradient {
+  background: linear-gradient(90deg, #009fff 0, #22c1c3 100%);
+  color: #fff;
+  font-weight: 700;
+  border: none;
+}
+.btn-gradient:hover {
+  background: linear-gradient(90deg, #22c1c3 0, #009fff 100%);
+}
