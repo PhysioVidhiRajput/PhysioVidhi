@@ -1,49 +1,547 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dr. Vidhi Rajput - Physiotherapy & Wellness Clinic</title>
-
-  <!-- Tailwind & Fonts -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
-
-  <!-- Custom CSS -->
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Dr. Vidhi Rajput - Physiotherapy & Wellness Clinic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(126deg, #e0f7fa 0%, #f5f8fd 40%, #e6eeff 100%);
+        }
+        .hero-bg {
+            background: linear-gradient(120deg, #1cb5e0 0%, #009E9A 90%),
+                url('https://placehold.co/1920x1080/e2e8f0/cccccc?text=Clinic+Image') no-repeat center center/cover;
+        }
+        .section-title {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, #009fff 0, #22c1c3 100%);
+            border-radius: 2px;
+        }
+        .testimonial-card {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+            background: linear-gradient(135deg, #ecfdf5 65%, #e3e9f7 100%);
+            transition: transform 0.3s ease;
+        }
+        .testimonial-card:hover {
+            transform: translateY(-5px) scale(1.025);
+        }
+        .service-gradient {
+            background: linear-gradient(125deg, #d9fbfd 0%, #e3e9f7 100%);
+        }
+        /* Modal styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .modal-backdrop.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 90%;
+            max-width: 500px;
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+        }
+        .modal-backdrop.active .modal-content {
+            transform: translateY(0);
+        }
+        /* Button gradient */
+        .btn-gradient {
+            background: linear-gradient(90deg, #009fff 0, #22c1c3 100%);
+            color: #fff;
+            font-weight: 700;
+            border: none;
+        }
+        .btn-gradient:hover {
+            background: linear-gradient(90deg, #22c1c3 0, #009fff 100%);
+        }
+    </style>
 </head>
 <body class="bg-gray-50 text-gray-800">
-  
-  <!-- 🔹 Your existing HTML content here (same as before, just removed inline <style> and <script>) -->
-
-  <!-- Footer -->
-  <footer class="bg-cyan-900 text-white py-10">
-    <div class="container mx-auto px-6 text-center">
-      <p>&copy; 2025 Dr. Vidhi Rajput Physiotherapy Clinic. All Rights Reserved.</p>
-      <div class="mt-4 flex justify-center space-x-4">
-        <a href="#" class="hover:text-cyan-400"><i class="fab fa-facebook-f"></i></a>
-        <a href="#" class="hover:text-cyan-400"><i class="fab fa-instagram"></i></a>
-        <a href="#" class="hover:text-cyan-400"><i class="fab fa-linkedin-in"></i></a>
-      </div>
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-cyan-800"
+                ><i class="fa-solid fa-user-doctor mr-3 text-cyan-700"></i>Dr. Vidhi Rajput (PT)</a
+            >
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#about" class="text-gray-600 hover:text-cyan-700">About</a>
+                <a href="#services" class="text-gray-600 hover:text-cyan-700">Services</a>
+                <a href="#testimonials" class="text-gray-600 hover:text-cyan-700">Testimonials</a>
+                <a href="#contact" class="text-gray-600 hover:text-cyan-700">Contact</a>
+                <a
+                    href="#appointment"
+                    class="btn-gradient px-4 py-2 rounded-full transition duration-300"
+                    >Book Appointment</a
+                >
+            </div>
+            <button id="mobile-menu-button" class="md:hidden">
+                <i class="fas fa-bars text-2xl text-cyan-700"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#about" class="block py-2 text-gray-600 hover:text-cyan-700">About</a>
+            <a href="#services" class="block py-2 text-gray-600 hover:text-cyan-700">Services</a>
+            <a href="#testimonials" class="block py-2 text-gray-600 hover:text-cyan-700">Testimonials</a>
+            <a href="#contact" class="block py-2 text-gray-600 hover:text-cyan-700">Contact</a>
+            <a
+                href="#appointment"
+                class="block mt-2 btn-gradient text-center rounded-full"
+                >Book Appointment</a
+            >
+        </div>
+    </header>
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-bg text-white">
+            <div class="container mx-auto px-6 py-24 text-center">
+                <h1
+                    class="text-4xl md:text-6xl font-bold mb-4"
+                    style="text-shadow:0 2px 8px #27688880"
+                >
+                    Restore Movement, Rebuild Strength
+                </h1>
+                <p
+                    class="text-lg md:text-xl mb-8 max-w-3xl mx-auto"
+                    style="text-shadow:0 2px 6px #237E9690"
+                >
+                    Personalized physiotherapy care to help you recover from injury, manage pain,
+                    and improve your quality of life.
+                </p>
+                <a
+                    href="#appointment"
+                    class="btn-gradient py-3 px-8 rounded-full hover:scale-105 transition duration-300 text-lg shadow-lg"
+                    >Schedule Your Consultation</a
+                >
+            </div>
+        </section>
+        <!-- About Section -->
+        <section id="about" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3 flex justify-center">
+                        <img
+                            src="https://i.ibb.co/rKdhwd0R/new-photo-jpg.jpg"
+                            alt="Dr. Vidhi Rajput"
+                            class="rounded-full shadow-xl border-4 border-cyan-200"
+                        />
+                    </div>
+                    <div class="md:w-2/3 text-center md:text-left">
+                        <h2 class="text-3xl font-bold text-gray-800 mb-4 section-title inline-block">
+                            Meet Dr. Vidhi Rajput (PT)
+                        </h2>
+                        <p class="text-cyan-800 mb-4">
+                            <i class="fa-solid fa-user-nurse text-cyan-600 mr-1"></i> Welcome to my professional
+                            space! I am Dr. Vidhi Rajput (PT), a recently qualified Physiotherapist, having
+                            successfully completed my Bachelor of Physiotherapy (BPT). My journey through
+                            physiotherapy has shaped me into a compassionate and dedicated healthcare
+                            professional with a passion for helping people restore movement, overcome pain,
+                            and improve their quality of life. I believe in combining scientific knowledge
+                            with a patient-centered approach to deliver effective care.
+                        </p>
+                        <p class="text-gray-600">
+                            This website reflects my commitment to continuous learning, growth, and service as
+                            I step into the professional world of physiotherapy, eager to make a positive
+                            difference in people’s lives.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Services Section -->
+        <section id="services" class="py-20">
+            <div class="container mx-auto px-6">
+                <h2
+                    class="text-3xl font-bold text-center text-gray-800 mb-12 section-title"
+                >
+                    Our Services
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Service Card 1 -->
+                    <div
+                        class="service-gradient rounded-lg p-8 shadow-lg text-center hover:shadow-2xl transition duration-300"
+                    >
+                        <div class="text-cyan-700 mb-4">
+                            <i class="fa-solid fa-person-running fa-3x"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Sports Injury Rehab</h3>
+                        <p class="text-gray-600">
+                            Specialized programs for athletes of all levels to recover from injuries,
+                            prevent future issues, and enhance performance.
+                        </p>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div
+                        class="service-gradient rounded-lg p-8 shadow-lg text-center hover:shadow-2xl transition duration-300"
+                    >
+                        <div class="text-cyan-600 mb-4">
+                            <i class="fa-solid fa-x-ray fa-3x"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Orthopedic Care</h3>
+                        <p class="text-gray-600">
+                            Effective treatment for joint pain, back and neck pain, arthritis, and post-surgical
+                            recovery.
+                        </p>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div
+                        class="service-gradient rounded-lg p-8 shadow-lg text-center hover:shadow-2xl transition duration-300"
+                    >
+                        <div class="text-cyan-700 mb-4">
+                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Manual Therapy</h3>
+                        <p class="text-gray-600">
+                            Hands-on techniques including mobilization and manipulation to reduce pain and
+                            improve mobility.
+                        </p>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div
+                        class="service-gradient rounded-lg p-8 shadow-lg text-center hover:shadow-2xl transition duration-300"
+                    >
+                        <div class="text-cyan-600 mb-4">
+                            <i class="fa-solid fa-brain fa-3x"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Neurological Rehab</h3>
+                        <p class="text-gray-600">
+                            Rehabilitation for conditions like stroke, Parkinson's, and multiple sclerosis to
+                            improve function and independence.
+                        </p>
+                    </div>
+                    <!-- Service Card 5 -->
+                    <div
+                        class="service-gradient rounded-lg p-8 shadow-lg text-center hover:shadow-2xl transition duration-300"
+                    >
+                        <div class="text-cyan-700 mb-4">
+                            <i class="fa-solid fa-baby fa-3x"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Pediatric Physiotherapy</h3>
+                        <p class="text-gray-600">
+                            Gentle and effective care for children with developmental delays, congenital
+                            disorders, and injuries.
+                        </p>
+                    </div>
+                    <!-- Service Card 6 -->
+                    <div
+                        class="service-gradient rounded-lg p-8 shadow-lg text-center hover:shadow-2xl transition duration-300"
+                    >
+                        <div class="text-cyan-600 mb-4">
+                            <i class="fa-solid fa-house-medical fa-3x"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">Home Visit Consultations</h3>
+                        <p class="text-gray-600">
+                            Professional physiotherapy services delivered in the comfort and convenience of your
+                            own home.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2
+                    class="text-3xl font-bold text-center text-gray-800 mb-12 section-title"
+                >
+                    What Our Patients Say
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card rounded-lg p-8">
+                        <p class="text-gray-600 mb-6">
+                            "<span class="text-cyan-800">Dr. Vidhi is a miracle worker!</span> After months of leg pain,
+                            her treatment plan had me pain-free and back to playing tennis in just a few weeks.
+                            Highly recommended!"
+                        </p>
+                        <div class="flex items-center">
+                            <img
+                                src="https://placehold.co/50x50/cccccc/333333?text=JS"
+                                class="rounded-full mr-4"
+                                alt="Patient John S."
+                            />
+                            <div>
+                                <p class="font-bold">Om Pawar</p>
+                                <p class="text-sm text-gray-500">Computer Science Engineer</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card rounded-lg p-8">
+                        <p class="text-gray-600 mb-6">
+                            "The care and attention to detail I received were exceptional.
+                            <span class="text-cyan-800">Dr. Rajput</span> took the time to explain my condition and
+                            the exercises, which made all the difference in my recovery."
+                        </p>
+                        <div class="flex items-center">
+                            <img
+                                src="https://placehold.co/50x50/cccccc/333333?text=AM"
+                                class="rounded-full mr-4"
+                                alt="Patient Alice M."
+                            />
+                            <div>
+                                <p class="font-bold">Siddhesh Ingle</p>
+                                <p class="text-sm text-gray-500">Post-Surgery Patient</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card rounded-lg p-8">
+                        <p class="text-gray-600 mb-6">
+                            "I was skeptical about physiotherapy for my chronic back pain, but the results have been
+                            life-changing. I can finally enjoy daily activities without constant discomfort."
+                        </p>
+                        <div class="flex items-center">
+                            <img
+                                src="https://placehold.co/50x50/cccccc/333333?text=RB"
+                                class="rounded-full mr-4"
+                                alt="Patient Robert B."
+                            />
+                            <div>
+                                <p class="font-bold">Vaishali Patil</p>
+                                <p class="text-sm text-gray-500">Office Worker</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Appointment Form Section -->
+        <section
+            id="appointment"
+            class="py-20"
+            style="background: linear-gradient(115deg, #e9f9fb 30%, #def2fc 100%)"
+        >
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12 section-title">
+                    Book an Appointment
+                </h2>
+                <div class="max-w-2xl mx-auto bg-white p-8 rounded-lg shadow-xl">
+                    <form id="appointmentForm">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <input
+                                type="text"
+                                placeholder="Full Name"
+                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                required
+                            />
+                            <input
+                                type="email"
+                                placeholder="Email Address"
+                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                required
+                            />
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <input
+                                type="tel"
+                                placeholder="Phone Number"
+                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                required
+                            />
+                            <input
+                                type="date"
+                                placeholder="Preferred Date"
+                                class="w-full px-4 py-3 border rounded-lg text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                required
+                            />
+                        </div>
+                        <div class="mb-6">
+                            <select
+                                class="w-full px-4 py-3 border rounded-lg text-gray-500 focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                required
+                            >
+                                <option value="" disabled selected>
+                                    Select a Service
+                                </option>
+                                <option>Sports Injury Rehab</option>
+                                <option>Orthopedic Care</option>
+                                <option>Manual Therapy</option>
+                                <option>Neurological Rehab</option>
+                                <option>Pediatric Physiotherapy</option>
+                                <option>Home Visit</option>
+                                <option>General Consultation</option>
+                            </select>
+                        </div>
+                        <div class="mb-6">
+                            <textarea
+                                placeholder="Briefly describe your condition or reason for visit"
+                                rows="4"
+                                class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"
+                                required
+                            ></textarea>
+                        </div>
+                        <div class="text-center">
+                            <button
+                                type="submit"
+                                class="btn-gradient py-3 px-8 rounded-full transition duration-300 text-lg shadow-lg"
+                            >
+                                Request Appointment
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white">
+            <div class="container mx-auto px-6">
+                <h2 class="text-3xl font-bold text-center text-gray-800 mb-12 section-title">
+                    Get In Touch
+                </h2>
+                <div class="flex flex-col md:flex-row gap-12">
+                    <!-- Contact Info -->
+                    <div class="md:w-1/2">
+                        <div class="space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="text-cyan-700 mt-1">
+                                    <i class="fas fa-map-marker-alt fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Our Clinic</h3>
+                                    <p class="text-gray-600"> Khamgaon, MH 444303, India</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="text-cyan-600 mt-1">
+                                    <i class="fas fa-phone fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Phone</h3>
+                                    <p class="text-gray-600">(+91)9022166184</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="text-cyan-700 mt-1">
+                                    <i class="fas fa-envelope fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Email</h3>
+                                    <p class="text-gray-600">physiovidhirajput@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="text-cyan-600 mt-1">
+                                    <i class="fas fa-clock fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="text-xl font-bold">Opening Hours</h3>
+                                    <p class="text-gray-600">Mon - Sat : 5:00 PM - 10:00 PM</p>
+                                    <p class="text-gray-600"></p>
+                                    <p class="text-gray-600">Sun: Closed</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Map -->
+                    <div class="md:w-1/2 h-96 md:h-auto rounded-lg overflow-hidden shadow-lg">
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d30015.79462211914!2d76.55940961819875!3d20.68603613615967!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bd8f93616215a75%3A0x82376945a0b5b152!2sKhamgaon%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1726851211130!5m2!1sen!2sin"
+                            width="100%"
+                            height="100%"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-cyan-900 text-white py-10">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Dr. Vidhi Rajput Physiotherapy Clinic. All Rights Reserved.</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <a href="#" class="hover:text-cyan-400"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="hover:text-cyan-400"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="hover:text-cyan-400"><i class="fab fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+    <!-- Success Modal -->
+    <div id="successModal" class="modal-backdrop">
+        <div class="modal-content text-center">
+            <div class="text-green-500 mb-4">
+                <i class="fas fa-check-circle fa-4x"></i>
+            </div>
+            <h2 class="text-2xl font-bold mb-2">Thank You!</h2>
+            <p class="text-gray-600 mb-6">
+                Your appointment request has been sent successfully. We will contact you shortly to confirm your booking.
+            </p>
+            <button id="closeModal" class="btn-gradient px-6 py-2 rounded-full">Close</button>
+        </div>
     </div>
-  </footer>
-
-  <!-- Success Modal -->
-  <div id="successModal" class="modal-backdrop">
-    <div class="modal-content text-center">
-      <div class="text-green-500 mb-4">
-        <i class="fas fa-check-circle fa-4x"></i>
-      </div>
-      <h2 class="text-2xl font-bold mb-2">Thank You!</h2>
-      <p class="text-gray-600 mb-6">
-        Your appointment request has been sent successfully. We will contact you shortly to confirm your booking.
-      </p>
-      <button id="closeModal" class="btn-gradient px-6 py-2 rounded-full">Close</button>
-    </div>
-  </div>
-
-  <!-- Custom JS -->
-  <script src="script.js"></script>
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        // Form Submission & Modal
+        const appointmentForm = document.getElementById('appointmentForm');
+        const successModal = document.getElementById('successModal');
+        const closeModalButton = document.getElementById('closeModal');
+        appointmentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            successModal.classList.add('active');
+        });
+        const closeModal = () => {
+            successModal.classList.remove('active');
+            appointmentForm.reset();
+        };
+        closeModalButton.addEventListener('click', closeModal);
+        successModal.addEventListener('click', (e) => {
+            if (e.target === successModal) {
+                closeModal();
+            }
+        });
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                mobileMenu.classList.add('hidden');
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth',
+                });
+            });
+        });
+    </script>
 </body>
 </html>
