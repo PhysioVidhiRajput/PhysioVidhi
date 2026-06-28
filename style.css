@@ -1304,3 +1304,48 @@ input, select, textarea { font-family: var(--font-body); }
   .floating { animation: none; }
   html { scroll-behavior: auto; }
 }
+/* ===== Home Visit Without Image ===== */
+
+.homevisit-center{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:60px;
+    flex-wrap:wrap;
+}
+
+.homevisit-center .homevisit-content{
+    max-width:700px;
+}
+
+.homevisit-center .homevisit-visual{
+    max-width:550px;
+}
+
+.homevisit-center .homevisit-content,
+.homevisit-center .homevisit-visual{
+    flex:1;
+}
+
+.no-image{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+@media(max-width:991px){
+
+.homevisit-center{
+    flex-direction:column;
+    text-align:center;
+}
+
+.homevisit-center .benefit{
+    justify-content:center;
+}
+
+.homevisit-center .btn{
+    margin:auto;
+}
+
+}
