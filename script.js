@@ -316,31 +316,26 @@ if (bookBtn) {
       return;
     }
 
-    const msg = [
-      '👋 Hello Dr. Vidhi Rajput,',
-      '',
-      'I would like to book a physiotherapy appointment.',
-      '',
-      '📋 *Appointment Details:*',
-      `• Name: ${name}`,
-      `• Phone: ${phone}`,
-      `• Age: ${age}`,
-      `• Gender: ${gender}`,
-      `• Email: ${email}`,
-      '',
-      '🏥 *Service & Schedule:*',
-      `• Service: ${service}`,
-      `• Consultation Type: ${consultType}`,
-      `• Preferred Date: ${date}`,
-      `• Preferred Time: ${time}`,
-      '',
-      '🩺 *Problem Description:*',
-      problem,
-      '',
-      'Please confirm my appointment. Thank you! 🙏'
-    ].join('\n');
+   const msg = [
+  'Hello Dr. Vidhi Rajput,',
+  '',
+  'I would like to book an appointment.',
+  '',
+  `Name: ${name}`,
+  `Phone: ${phone}`,
+  `Age: ${age}`,
+  `Gender: ${gender}`,
+  `Email: ${email}`,
+  `Service: ${service}`,
+  `Consultation: ${consultType}`,
+  `Preferred Date: ${date}`,
+  `Preferred Time: ${time}`,
+  `Problem: ${problem || '—'}`,
+  '',
+  'Please contact me. Thank you!'
+].join('\n');
 
-    const url = 'https://wa.me/919022166184?text=' + encodeURIComponent(msg);
+    const url = 'https://wa.me/919322719138?text=' + encodeURIComponent(msg);
     window.open(url, '_blank');
   });
 }
